@@ -1,0 +1,30 @@
+{
+  "name": "react-safe-actions",
+  "version": "0.1.0",
+  "description": "A library to create validating flux standard actions.",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "node src/index-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thaggie/react-safe-actions.git"
+  },
+  "bugs": "https://github.com/thaggie/gulp-json-transform/issues",
+  "homepage": "https://github.com/thaggie/gulp-json-transform",
+  "keywords": [
+    "react",
+    "flux",
+    "action"
+  ],
+  "author": {
+    "name": "Tom Haggie",
+    "url": "https://github.com/thaggie"
+  },
+  "license": "MIT",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "react": "^15.2.0"
+  }
+}
