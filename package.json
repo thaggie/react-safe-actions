@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git@github.com:thaggie/react-safe-actions.git"
   },
-  "bugs": "https://github.com/thaggie/gulp-json-transform/issues",
-  "homepage": "https://github.com/thaggie/gulp-json-transform",
+  "bugs": "https://github.com/thaggie/react-safe-actions/issues",
+  "homepage": "https://github.com/thaggie/react-safe-actions",
   "keywords": [
     "react",
     "flux",
@@ -23,8 +23,9 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "tape": "^4.6.0"
   },
   "dependencies": {
-    "react": "^15.2.0"
+    "react": ">0.11.0"
   }
 }

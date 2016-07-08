@@ -17,17 +17,18 @@ module.exports = {
               action.payload = payload;
           } else if (args)  {
               if (nArgs === 1) {
+                  var arg1 = payload;
                   payload = {
                   };
-                  payload[argNames[0]] = payload;
+                  if (typeof arg1 !== 'undefined') {
+                      payload[argNames[0]] = arg1;
+                  }
               }
               if (process.env.NODE_ENV !== 'production') {
-
                   for (var i in argNames) {
                       var name = argNames[i];
                       var argType = args[name];
-                      console.log('ELLIOTT', argType);
-                      var err = argType(payload, name, actionType);
+                      var err = argType(payload, name, actionType, 'prop');
                       if (err) {
                           throw err;
                       }

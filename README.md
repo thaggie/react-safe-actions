@@ -1,67 +1,60 @@
-gulp-json-transform
-===================
-[![NPM Version](http://img.shields.io/npm/v/gulp-json-transform.svg?style=flat)](https://www.npmjs.com/package/gulp-json-transform)
-[![Build Status](https://travis-ci.org/thaggie/gulp-json-transform.svg)](https://travis-ci.org/thaggie/gulp-json-transform)
-[![Dependencies Status](https://david-dm.org/thaggie/gulp-json-transform.svg)](https://david-dm.org/thaggie/gulp-json-transform)
+react-safe-actions
+==================
+[![NPM Version](http://img.shields.io/npm/v/react-safe-actions.svg?style=flat)](https://www.npmjs.com/package/react-safe-actions)
+[![Build Status](https://travis-ci.org/thaggie/react-safe-actions.svg)](https://travis-ci.org/thaggie/react-safe-actions)
+[![Dependencies Status](https://david-dm.org/thaggie/react-safe-actions.svg)](https://david-dm.org/thaggie/react-safe-actions)
 
+A library for declaratively creating [flux standard actions](https://github.com/acdlite/flux-standard-action)
+that check the payload type using [React](https://facebook.github.io/react)'s `PropTypes` system.
 
-A [gulp](https://github.com/gulpjs/gulp) plugin to transform JSON files, pipe JSON files through it and transform them to other JSON files or other text based formats.
+Action payloads are validated to make sure they conform to the payload's schema
+at construction time
 
+## Usage Examples
 
-## Usage
-
-
-First install `gulp-json-transform` as a development dependency:
-
-```shell
-npm install gulp-json-transform --save-dev
+### No Arguments
+```
+var noArgsAction = rsa.create('NO_ARGS');
+noArgsAction();
+// {type: 'NO_ARGS'}
 ```
 
-Then, add it to your gulpfile.js:
+### One Argument
 
-```javascript
-var jsonTransform = require('gulp-json-transform');
+Actions with one argument are special cased so that they can just be called with that one argument rather than the payload options:
+
 ```
-
-Then create a task that uses it:
-
-```javascript
-gulp.task('do-something', function() {
-	gulp.src('./app/**/*.json')
-	.pipe(jsonTransform(function(data, file) {
-		return {
-			foobar: data.foo + file.relative
-		};
-	}))
-	.pipe(gulp.dest('./dist/out/'));
+var oneArgAction = rsa.create('ONE_ARG', {
+	foo: rsa.types.string.isRequired
 });
+oneArgAction('the arg for foo');
+// {type: 'ONE_ARG': payload: {foo: 'the arg for foo'}}
+oneArgAction(); // throws
 ```
 
-## API
+### More than one argument
 
-### jsonTransform(transformFn [, whiteSpace])
-
-#### transformFn
-Type: `function`
-
-A function that takes the JSON object and a file object (parameters path, base and relative are exposed) as the input parameters and should return either a string which is written raw to the file, a JSON object which is stringified or a Promise which resolves to a string or a JSON object.
-
-Example structure of the file object:
 ```
-{
-  path: 'test/fixtures/input.json',
-  relative: 'input.json',
-  base: 'test/fixtures'
-}
+var multiArgAction = rsa.create('MANY_ARGS', {
+	foo: rsa.types.string.isRequired,
+	bar: rsa.types.string.isRequired
+});
+multiArgAction({foo: 'the foo arg', bar: 'the bar arg'});
+// {type: 'MANY_ARGS', payload: {foo: 'the foo arg', bar: 'the bar arg'}}
+multiArgAction({foo: 'the foo arg'}); // throws
 ```
 
-#### whiteSpace
+### With an error
 
-Type: `String` or `Number`
-Default: `undefined`
+```
+var anyArgs = rsa.create('ANY_ARGS', {
+	foo: rsa.types.string.isRequired,
+	bar: rsa.types.string.isRequired
+});
+anyArgs(new Error('Badness'));
+// {type: 'ANY_ARGS', error: true payload: Error('Badness')}
+```
 
-JSON.stringify's whitespace attribute for pretty-printing the resulting JSON.
-See [MDN docs on JSON.stringify()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) for more information.
 
 ## License
 
