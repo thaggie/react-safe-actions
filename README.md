@@ -13,7 +13,7 @@ at construction time
 ## Usage Examples
 
 ### No Arguments
-```
+``` js
 var noArgsAction = rsa.create('NO_ARGS');
 noArgsAction();
 // {type: 'NO_ARGS'}
@@ -23,7 +23,7 @@ noArgsAction();
 
 Actions with one argument are special cased so that they can just be called with that one argument rather than the payload options:
 
-```
+``` js
 var oneArgAction = rsa.create('ONE_ARG', {
 	foo: rsa.types.string.isRequired
 });
@@ -34,7 +34,7 @@ oneArgAction(); // throws
 
 ### More than one argument
 
-```
+``` js
 var multiArgAction = rsa.create('MANY_ARGS', {
 	foo: rsa.types.string.isRequired,
 	bar: rsa.types.string.isRequired
@@ -46,7 +46,7 @@ multiArgAction({foo: 'the foo arg'}); // throws
 
 ### With an error
 
-```
+``` js
 var anyArgs = rsa.create('ANY_ARGS', {
 	foo: rsa.types.string.isRequired,
 	bar: rsa.types.string.isRequired
