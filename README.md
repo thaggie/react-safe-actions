@@ -33,12 +33,17 @@ And you'd call it like this:
 dispatch(doSomething('Do something.'));
 ```
 
+Note that single argument payloads are special cased so you can just pass the
+argument, normally you pass the arguments as an options object (see the with
+more than one argument example below).
+
 Action payloads are validated to make sure they conform to the payload's schema
 at construction time, when the schema isn't satisfied an exception is thrown:
 
 ![Error: Required prop `id` was not specified in `EDIT_TODO`.](react-safe-actions-error-log.png)
 
-Note that the checking is turned off if `NODE_ENV` is set to `production`.
+Note that the checking is turned off if `NODE_ENV` is set to `production`, you
+can see a full set of changes to redux' todo-mvc example [here](https://github.com/thaggie/redux/commit/67e3e87762d254acffdaf7ac949253286074efc8).
 
 ## Usage Examples
 
