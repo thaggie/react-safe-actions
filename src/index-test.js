@@ -1,5 +1,9 @@
 'use strict';
 
+// we add a method to array to make sure we aren't sensitive to Array updates.
+Array.prototype.badness = function () {
+};
+
 var rsa = require('./index');
 
 var test = require('tape');

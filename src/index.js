@@ -25,7 +25,7 @@ module.exports = {
                   }
               }
               if (process.env.NODE_ENV !== 'production') {
-                  for (var i in argNames) {
+                  for (var i=0; i<nArgs; ++i) {
                       var name = argNames[i];
                       var argType = args[name];
                       var err = argType(payload, name, actionType, 'prop');

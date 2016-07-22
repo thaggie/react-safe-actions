@@ -1,6 +1,6 @@
 {
   "name": "react-safe-actions",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A library to create validating flux standard actions.",
   "main": "./src/index.js",
   "scripts": {
