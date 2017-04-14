@@ -4,23 +4,21 @@
 Array.prototype.badness = function () {
 };
 
-var rsa = require('./index');
+var PropTypes = require('prop-types');
+
+var createAction = require('./index');
 
 var test = require('tape');
 
 test('It can be required', function (t) {
-    t.equal(typeof rsa, 'object', 'rsa should be an object');
-
-    t.equal(typeof rsa.create, 'function', 'create should be a function');
-
-    t.equal(typeof rsa.types, 'object',  'types should be an object');
+    t.equal(typeof createAction, 'function', 'create should be a function');
 
     t.end();
 });
 
 test('action with no arguments', function (t) {
 
-    var myActionCreator = rsa.create('MY_ACTION_TYPE');
+    var myActionCreator = createAction('MY_ACTION_TYPE');
     t.equal(typeof myActionCreator, 'function',
         'an action function is created');
 
@@ -40,8 +38,8 @@ test('action with no arguments', function (t) {
 });
 
 test('action with one optional argument', function (t) {
-    var myActionCreator = rsa.create('MY_ACTION_TYPE',  {
-        foo: rsa.types.string
+    var myActionCreator = createAction('MY_ACTION_TYPE',  {
+        foo: PropTypes.string
     });
     t.equal(typeof myActionCreator, 'function',
         'an action function is created');
@@ -63,8 +61,8 @@ test('action with one optional argument', function (t) {
 
 test('action with one argument', function (t) {
 
-    var myActionCreator = rsa.create('MY_ACTION_TYPE',  {
-        foo: rsa.types.string.isRequired
+    var myActionCreator = createAction('MY_ACTION_TYPE',  {
+        foo: PropTypes.string.isRequired
     });
     t.equal(typeof myActionCreator, 'function',
         'an action function is created');
@@ -92,9 +90,9 @@ test('action with one argument', function (t) {
 
 test('action with many arguments', function (t) {
 
-    var myActionCreator = rsa.create('MY_ACTION_TYPE',  {
-        foo: rsa.types.string.isRequired,
-        baz: rsa.types.number
+    var myActionCreator = createAction('MY_ACTION_TYPE',  {
+        foo: PropTypes.string.isRequired,
+        baz: PropTypes.number
     });
     t.equal(typeof myActionCreator, 'function',
         'an action function is created');
@@ -129,11 +127,11 @@ test('action with many arguments', function (t) {
 test('error has appropriate message', function (t) {
     t.plan(1);
     try {
-        var myActionCreator = rsa.create('MY_ACTION_TYPE',  {
-            foo: rsa.types.string.isRequired
+        var myActionCreator = createAction('MY_ACTION_TYPE',  {
+            foo: PropTypes.string.isRequired
         });
         myActionCreator();
     } catch (e) {
-        t.equal(e.message, 'Required prop `foo` was not specified in `MY_ACTION_TYPE`.', 'message matches');
+        t.equal(e.message, 'The prop `foo` is marked as required in `MY_ACTION_TYPE`, but its value is `undefined`.', 'message matches');
     }
 });
